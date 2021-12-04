@@ -5,7 +5,11 @@
 <EditForm Model="SensorsSummary" OnSubmit="@(() => {})">
     <div class="form-check form-switch">
         <label for="displayAdmin">Display Admin Controls</label>
-        <InputCheckbox class="form-check-input" @bind-Value=@DisplayAdminControls/>
+        <InputCheckbox id="displayAdmin" class="form-check-input" @bind-Value=@DisplayAdminControls/>
+    </div>
+    <div class="form-group">
+        <label for="test">Test</label>
+        <InputNumber id="test" class="form-control" @bind-Value=@SensorsSummary.TravelTimeMinutes/>
     </div>
 </EditForm>
 
