@@ -4,20 +4,23 @@ namespace AutonomousVehicle.Models;
 
 public class SensorsSummary
 {
+    [Display(Name ="Randomize Values")]
+    public bool RandomizeValues { get; set; }
+
     [Display(Name = "Display Systems Overview")]
     public bool DisplaySystemsOverview { get; set; }
 
+    [Display(Name = "Destination")]
     public string Destination { get; set; } = string.Empty;
 
     [Display(Name = "Travel Time in Minutes")]
     public int? TravelTimeMinutes { get; set; }
 
+    [Display(Name = "Temperature")]
     public int Temperature { get; set; }
 
     [Display(Name = "Temperature Type")]
     public TemperatureType TemperatureType { get; set; }
-
-    public ICollection<SystemMessage> SystemMessages { get; } = new List<SystemMessage>();
 
     [Display(Name = "Display Seatbelt Icon")]
     public bool DisplaySeatbeltIcon { get; set; }
@@ -43,7 +46,7 @@ public class SensorsSummary
     [Display(Name = "Speed Limit")]
     public int SpeedLimit { get; set; }
 
-    [Display(Name = "Speed Limit")]
+    [Display(Name = "Odometer")]
     public int Odometer { get; set; }
 
     [Display(Name = "Next Fuel-up")]
@@ -72,4 +75,6 @@ public class SensorsSummary
 
     [Display(Name = "Processor Condition")]
     public SystemStatusCondition ProcessorCondition { get; set; }
+
+    public ICollection<SystemMessage> SystemMessages { get; } = new List<SystemMessage>();
 }
