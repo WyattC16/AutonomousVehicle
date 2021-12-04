@@ -6,7 +6,7 @@
 
 <h3>Admin Controls</h3>
 
-<EditForm Model="SensorsSummary" OnSubmit="@Parent.ApplySensorsValuesUpdate">
+<EditForm Model="SensorsSummary" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -66,6 +66,9 @@
 @code {
     [CascadingParameter]
     public Pages.Index Parent { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Action OnSubmit { get; set; } = () => { };
 
     private SensorsSummary SensorsSummary => Parent.SensorsSummary;
 

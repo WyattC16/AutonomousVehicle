@@ -12,7 +12,7 @@
 @if (DisplayAdminControls)
 {
     <CascadingValue Value="this">
-        <Admin/>
+        <Admin OnSubmit=@ApplySensorsValuesUpdate/>
     </CascadingValue>
 }
 
@@ -51,7 +51,15 @@
         RoadCondition = "Normal, Dry",
         SpeedLimit = 35,
         Odometer = 25346,
-        NextFuelUp = 134
+        NextFuelUp = 134,
+        TirePressureCondition = SystemStatusCondition.Good,
+        OilPressureCondition = SystemStatusCondition.Good,
+        TemperatureCondition = SystemStatusCondition.Good,
+        BatteryCondition = SystemStatusCondition.Good,
+        PowerSteeringCondition = SystemStatusCondition.Good,
+        EngineCondition = SystemStatusCondition.Good,
+        SensorsCondition = SystemStatusCondition.Good,
+        ProcessorCondition = SystemStatusCondition.Good
     };
 
     internal void ApplySensorsValuesUpdate()

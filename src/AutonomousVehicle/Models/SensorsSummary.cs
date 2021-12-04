@@ -48,4 +48,28 @@ public class SensorsSummary
 
     [Display(Name = "Next Fuel-up")]
     public int NextFuelUp { get; set; }
+
+    [Display(Name = "Tire Pressure Condition")]
+    public SystemStatusCondition TirePressureCondition { get; set; }
+
+    [Display(Name = "Oil Pressure Condition")]
+    public SystemStatusCondition OilPressureCondition { get; set; }
+
+    [Display(Name = "Temperature Condition")]
+    public SystemStatusCondition TemperatureCondition { get; set; }
+
+    [Display(Name = "Battery Condition")]
+    public SystemStatusCondition BatteryCondition { get; set; }
+
+    [Display(Name = "Power Steering Condition")]
+    public SystemStatusCondition PowerSteeringCondition { get; set; }
+
+    [Display(Name = "Engine Condition")]
+    public SystemStatusCondition EngineCondition { get; set; }
+
+    [Display(Name = "Sensors Condition")]
+    public SystemStatusCondition SensorsCondition { get; set; }
+
+    [Display(Name = "Processor Condition")]
+    public SystemStatusCondition ProcessorCondition { get; set; }
 }

@@ -1,0 +1,51 @@
+﻿<div class="table">
+    <div class="row">
+        <div class="col">
+            <div class="table" style="border: solid cyan; border-radius: 15px;">
+                <div class="row">
+                    <div class="col">
+                        <p style="color:yellow">SYSTEM STATUS</p>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.TirePressureCondition/>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.OilPressureCondition/>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.TemperatureCondition/>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.BatteryCondition/>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.PowerSteeringCondition/>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.EngineCondition/>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.SensorsCondition/>
+                    </div>
+                    <div class="col">
+                        <SystemStatus Condition=@SensorsSummary.ProcessorCondition/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <StatusIndicator Title="Speed Limit" Message="@($"{SensorsSummary.SpeedLimit} MPH")"/>
+        </div>
+        <div class="col-2">
+            <StatusIndicator Title="Odometer" Message="@($"{SensorsSummary.Odometer} Miled")"/>
+        </div>
+        <div class="col-2">
+            <StatusIndicator Title="Next Fuel-up" Message="@($"In {SensorsSummary.NextFuelUp} Miles")"/>
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+}

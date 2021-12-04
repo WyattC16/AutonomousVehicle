@@ -1,51 +1,28 @@
 ﻿<div class="table">
     <div class="row">
         <div class="col">
-            <div class="table" style="border: solid cyan; border-radius: 15px;">
-                <div class="row">
-                    <div class="col">
-                        <p style="color:yellow">SYSTEM STATUS</p>
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                </div>
-            </div>
+            Test
         </div>
-        <div class="col-2">
-            <StatusIndicator Title="Speed Limit" Message="@($"{SensorsSummary.SpeedLimit} MPH")"/>
-        </div>
-        <div class="col-2">
-            <StatusIndicator Title="Odometer" Message="@($"{SensorsSummary.Odometer} Miled")"/>
-        </div>
-        <div class="col-2">
-            <StatusIndicator Title="Next Fuel-up" Message="@($"In {SensorsSummary.NextFuelUp} Miles")"/>
+    </div>
+    <div class="row">
+        <div class="col">
+            @switch (Condition)
+            {
+                case SystemStatusCondition.Good:
+                    <span class="oi oi-check" style="color:green;"/>
+                    break;
+                case SystemStatusCondition.Warning:
+                    <span class="oi oi-warning" style="color:yellow;"/>
+                    break;
+                case SystemStatusCondition.Error:
+                    <span class="oi oi-x" style="color:red;"/>
+                    break;
+            }
         </div>
     </div>
 </div>
 
 @code {
-    [CascadingParameter]
-    public SensorsSummary SensorsSummary { get; set; } = default!;
+    [Parameter, EditorRequired]
+    public SystemStatusCondition Condition { get; set; }
 }
