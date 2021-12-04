@@ -1,0 +1,103 @@
+﻿@using Meziantou.AspNetCore.Components
+@using System.ComponentModel.DataAnnotations
+
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<h3>Admin Controls</h3>
+
+<EditForm Model="SensorsSummary" OnSubmit="@Parent.ApplySensorsValuesUpdate">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <GenericForm Model="SensorsSummary" EditorClass="form-control">
+        <FieldTemplate Context="field">
+            @{
+                var formGroupClass = "form-group";
+                if (field.PropertyType == typeof(bool) || field.PropertyType == typeof(bool?))
+                {
+                    CheckboxFields.Add(field);
+                    formGroupClass = "form-check form-switch";
+                    field.ValueChanged += OnCheckBoxClicked;
+                }
+            }
+            <div class="@formGroupClass">
+                <label for="@field.EditorId">@field.DisplayName</label>
+                @field.EditorTemplate
+                @field.FieldValidationTemplate
+            </div>
+        </FieldTemplate>
+    </GenericForm>
+    
+    <div class="form-group">
+        <input type="button" class="btn btn-primary" value="Add system message" @onclick="() => SensorsSummary.SystemMessages.Add(new SystemMessage())"/>
+    </div>
+    
+    @if (SensorsSummary.SystemMessages.Any())
+    {
+        var systemMessageindex = 0;
+        foreach (var message in SensorsSummary.SystemMessages)
+        {
+            systemMessageindex++;
+            var id = $"SystemMessage{systemMessageindex}";
+            <div class="form-group">
+                <label for="@id">System Message @systemMessageindex</label>
+                <InputText class="form-control" @bind-Value="message.Message"/>
+            </div>
+            <div class="form-group">
+                <label for="@id">System Message @systemMessageindex Type</label>
+                <InputEnumSelect class="form-control" @bind-Value="message.MessageCriticality"/>
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-danger" value="Remove system message @systemMessageindex" @onclick="() => SensorsSummary.SystemMessages.Remove(message)"/>
+            </div>
+        }
+    }
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Apply changes</button>
+    </div>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    public Pages.Index Parent { get; set; } = default!;
+
+    private SensorsSummary SensorsSummary => Parent.SensorsSummary;
+
+    private IJSObjectReference? JsModule { get; set; }
+
+    private ICollection<GenericFormField<SensorsSummary>> CheckboxFields = new List<GenericFormField<SensorsSummary>>();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            await UpdateCheckBoxesClasses();
+        }
+    }
+
+    private async void OnCheckBoxClicked(object? _1, EventArgs _2) => await UpdateCheckBoxesClasses();
+
+    private async Task UpdateCheckBoxesClasses()
+    {
+        JsModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/Admin.js");
+        foreach (var field in CheckboxFields)
+        {
+            var checkBoxId = field.EditorId;
+            if (await JsModule.InvokeAsync<bool>("elementExists", checkBoxId) &&
+                await JsModule.InvokeAsync<bool>("hasClass", checkBoxId, "form-control"))
+            {
+                await JsModule.InvokeVoidAsync("removeClass", checkBoxId, "form-control");
+                await JsModule.InvokeVoidAsync("addClass", checkBoxId, "form-check-input");
+            }
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (JsModule is not null)
+            await JsModule.DisposeAsync();
+    }
+}

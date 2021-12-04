@@ -1,0 +1,39 @@
+﻿<div class="table">
+    <div class="row" style="height:18vh">
+        <div class="col">
+            @if (SensorsSummary.DisplaySeatbeltIcon)
+            {
+                <img src="images/seat_belt_reminder_symbol.gif" style="height:70%;width:100%;"/>
+            }
+        </div>
+    </div>
+    <div class="row" style="height:18vh">
+        <div class="col">
+            @if (SensorsSummary.DisplayCheckEngine)
+            {
+                <h2 class="text-danger bg-black">CHECK <br/> ENGINE</h2>    
+            }        
+        </div>
+    </div>
+    <div class="row" style="height:18vh">
+        <div class="col">
+            @if (SensorsSummary.DisplayHazardsIcon)
+            {
+                <img src="images/hazard-warning-light-symbol-in-red-sign-hd.png" style="height:70%;width:100%;"/>
+            }      
+        </div>
+    </div>
+    <div class="row" style="height:18vh">
+        <div class="col">
+            @if (SensorsSummary.DisplayAirbagIcon)
+            {
+                <img src="images/Airbag_Warning_Light.jpg" style="height:70%;width:100%;"/>
+            }      
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+}

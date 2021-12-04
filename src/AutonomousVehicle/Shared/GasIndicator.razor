@@ -1,0 +1,26 @@
+﻿<div class="table">
+    @{
+        if(SensorsSummary.GasTankTotalGallons > 0)
+        {
+            const int totalNumberOfBars = 20;
+            var gasRemainingPercentage = 100d * SensorsSummary.GasTankAmountGallons / SensorsSummary.GasTankTotalGallons;
+            foreach(var i in Enumerable.Range(0, totalNumberOfBars).Reverse())
+            {
+                var barPercentage = 100d / totalNumberOfBars * i;
+                var classColor = barPercentage >= gasRemainingPercentage ? "white" : "cyan";
+                <div class="row" style="padding-bottom: 5px;height:2.75vh;">
+                    <div class="col">
+                        <div id="rectangle" style="width:100%; height:100%; background-color:@classColor;border-radius: 25px;"></div>
+                    </div>
+                </div>
+            }
+            
+            <img src="images/gas.png"/>
+        }
+    };
+</div>
+
+@code {
+    [CascadingParameter]
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+}

@@ -1,0 +1,28 @@
+﻿<div class="table" style="border-top: solid cyan; border-right: solid cyan; border-bottom: solid cyan; border-radius: 25px; height:50vh">
+    <div class="row">
+        <h4 style="color:yellow">
+            SYSTEM MESSAGING
+        </h4>
+    </div>
+    @foreach (var message in SensorsSummary.SystemMessages)
+    {
+        var color = message.MessageCriticality switch
+        {
+            SystemMessageCriticality.Information => "white",
+            SystemMessageCriticality.Warning => "red",
+            _ => ""
+        };
+        <div class="row">
+            <h4 style=@($"color:{color}")>
+                @message.Message.ToUpperInvariant()
+            </h4>
+        </div>
+    }
+</div>
+
+<StatusIndicator Title="Road Conditions" Message="@SensorsSummary.RoadCondition"/>
+
+@code {
+    [CascadingParameter]
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+}

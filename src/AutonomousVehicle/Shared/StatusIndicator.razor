@@ -1,0 +1,20 @@
+﻿<div class="table">
+    <div class="row" style="border-bottom: outset yellow; border-radius: 5px;">
+        <div class="col">
+            <p style="color:yellow;text-align: center;">@Title.ToUpperInvariant()</p>
+        </div>
+    </div>
+    <div class="row" style="border-top: outset yellow; border-radius: 5px;">
+        <div class="col">
+            <p style="color:white;text-align: center;">@Message.ToUpperInvariant()</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = string.Empty;
+    
+    [Parameter, EditorRequired]
+    public string Message { get; set; } = string.Empty;
+}

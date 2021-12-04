@@ -1,0 +1,43 @@
+﻿<style>
+    body{
+        background-color: darkblue;
+        color: white;
+    }
+</style>
+
+@if(SensorsSummary is not null){
+    <CascadingValue Value="SensorsSummary">
+        <div class="table" id="master-layout">
+            <div class="row">
+                <div class="col">
+                    <TitleBar/>
+                </div>
+            </div>
+            <div class="row" style="color:white; height:65vh">
+                <div class="col-3">
+                    <SystemMessaging/>
+                </div>
+                <div class="col">
+                    <RoadIndicator/>
+                </div>
+                <div class="col-1" style="width:11%;">
+                    <EmergencyIssuesIcons/>
+                </div>
+                <div class="col-1">
+                    <GasIndicator/>
+                </div>
+            </div>
+            <div class="row" style="color:white">
+                <div class="col">
+                    <SystemStatus/>
+                </div>
+            </div>
+        </div>
+    </CascadingValue>
+}
+
+
+@code {
+    [Parameter, EditorRequired]
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+}

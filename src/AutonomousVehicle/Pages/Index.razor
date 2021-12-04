@@ -1,0 +1,58 @@
+﻿@page "/"
+
+<PageTitle>Autonomous Vehicle</PageTitle>
+
+<div class="form-check form-switch">
+    <label for="displayAdmin">Display Admin Controls</label>
+    <input type="checkbox" class="form-check-input" @bind="@DisplayAdminControls"/>
+</div>
+
+@if (DisplayAdminControls)
+{
+    <CascadingValue Value="this">
+        <Admin/>
+    </CascadingValue>
+}
+
+<MasterInterface SensorsSummary=@SensorsSummary/>
+
+@code{
+    private bool DisplayAdminControls { get; set; }
+
+    public SensorsSummary SensorsSummary { get; } = new()
+    {
+        Destination = "Walmart, 900 Stillater Ave, Bangor",
+        TravelTimeMinutes = 85,
+        Temperature = 36,
+        TemperatureType = TemperatureType.Fahrenheit,
+        SystemMessages =
+        {
+            new SystemMessage
+            {
+                Message = "Next turn in 1 mile",
+                MessageCriticality = SystemMessageCriticality.Information
+            },
+            new SystemMessage
+            {
+                Message = "Braking applied - side collision avoided",
+                MessageCriticality = SystemMessageCriticality.Warning
+            }
+        },
+        DisplaySeatbeltIcon = true,
+        DisplayCheckEngine = true,
+        DisplayHazardsIcon = true,
+        DisplayAirbagIcon = true,
+        GasTankAmountGallons = 10,
+        GasTankTotalGallons = 20,
+        RoadCondition = "Normal, Dry",
+        SpeedLimit = 35,
+        Odometer = 25346,
+        NextFuelUp = 134
+    };
+
+    internal void ApplySensorsValuesUpdate()
+    {
+        //changing a value triggers the StateHasChanged method. Calling it explicitly after would render a second unneccessary time
+        DisplayAdminControls = false;
+    }
+}

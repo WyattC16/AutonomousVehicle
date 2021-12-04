@@ -1,0 +1,58 @@
+﻿<div class="table">
+    <div class="row" style="background-color:slategray">
+        <div class="col" style="color:yellow">
+            @{
+                var column1Text = SensorsSummary.DisplaySystemsOverview ? "SYSTEMS OVERVIEW" : 
+                    !string.IsNullOrWhiteSpace(SensorsSummary.Destination) ? "DESTINATION" : 
+                    string.Empty;
+
+                if(!string.IsNullOrWhiteSpace(column1Text))
+                {
+                    <span style="display: inline-block; vertical-align: middle; line-height: normal;">@column1Text</span>     
+                }
+            }       
+        </div>
+        <div class="col" style="color:@(SensorsSummary.DisplaySystemsOverview ? "green" : "white")">
+            @{
+                var column2Text = SensorsSummary.DisplaySystemsOverview ? "ALL SYSTEMS RUNNING NORMALLY" : 
+                    !string.IsNullOrWhiteSpace(SensorsSummary.Destination) ? SensorsSummary.Destination.ToUpperInvariant() : 
+                    string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(column2Text))
+                {
+                    <span style="display: inline-block; vertical-align: middle; line-height: normal;">@column2Text</span>
+                }
+            }
+        </div>
+        <div class="col" style="color:cyan">
+            @if (!SensorsSummary.DisplaySystemsOverview && SensorsSummary.TravelTimeMinutes.HasValue)
+            {
+                var travelTime = TimeSpan.FromMinutes(SensorsSummary.TravelTimeMinutes.Value);
+                var dayDisplay = travelTime.Days > 0 ? $"{travelTime.Days} Day{(travelTime.Days > 1 ? "s" : "")} " : "";
+                var hourDisplay = travelTime.Hours > 0 ?  $"{travelTime.Hours} Hour{(travelTime.Hours > 1 ? "s" : "")} " : "";
+                var minutesDisplay = travelTime.Minutes > 0 ?  $"{travelTime.Minutes} Minute{(travelTime.Minutes > 1 ? "s" : "")}" : "";
+                var travelTimeDisplay = "ARRIVAL: " + (dayDisplay + hourDisplay + minutesDisplay).TrimStart();
+                <span style="display: inline-block; vertical-align: middle; line-height: normal;">@travelTimeDisplay</span>                 
+            }
+        </div>
+        <div class="col-1">
+            <i class="oi oi-cog icon-large" style="font-size:25px"/>
+        </div>
+    </div>
+    <div style="clear: both; color:white">
+        <h3 style="float: left">@($"{DateTime.Now:MMM dd}")</h3>
+        <h3 style="float: right">@($"{DateTime.Now:h:mm tt}")</h3>
+    </div>
+    @if (SensorsSummary.TemperatureType != TemperatureType.None)
+    {
+        <div style="clear: both; color:white">
+            <h3 style="float: right">@($"{SensorsSummary.Temperature}°"+
+                $"{SensorsSummary.TemperatureType.ToString("F").FirstOrDefault()}")</h3>
+        </div>
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+}
