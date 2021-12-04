@@ -4,7 +4,7 @@
             SYSTEM MESSAGING
         </h4>
     </div>
-    @foreach (var message in SensorsSummary.SystemMessages)
+    @foreach (var message in SensorsSummary.SystemMessages.OrderBy(x => x.Order).ThenBy(x => x.MessageCriticality).ThenBy(x => x.Message))
     {
         var color = message.MessageCriticality switch
         {

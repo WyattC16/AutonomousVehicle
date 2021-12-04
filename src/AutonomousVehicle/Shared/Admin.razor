@@ -30,7 +30,7 @@
     </GenericForm>
     
     <div class="form-group">
-        <input type="button" class="btn btn-primary" value="Add system message" @onclick="() => SensorsSummary.SystemMessages.Add(new SystemMessage())"/>
+        <input type="button" class="btn btn-primary" value="Add system message" @onclick="() => SensorsSummary.SystemMessages.Add(new SystemMessage{Order = SensorsSummary.SystemMessages.Count + 1})"/>
     </div>
     
     @if (SensorsSummary.SystemMessages.Any())
@@ -42,11 +42,15 @@
             var id = $"SystemMessage{systemMessageindex}";
             <div class="form-group">
                 <label for="@id">System Message @systemMessageindex</label>
-                <InputText class="form-control" @bind-Value="message.Message"/>
+                <InputText id=@id class="form-control" @bind-Value="message.Message"/>
             </div>
             <div class="form-group">
                 <label for="@id">System Message @systemMessageindex Type</label>
-                <InputEnumSelect class="form-control" @bind-Value="message.MessageCriticality"/>
+                <InputEnumSelect id=@id class="form-control" @bind-Value="message.MessageCriticality"/>
+            </div>
+            <div class="form-group">
+                <label for="@id">System Message @systemMessageindex Order</label>
+                <InputNumber id=@id class="form-control" @bind-Value="message.Order"/>
             </div>
             <div class="form-group">
                 <input type="button" class="btn btn-danger" value="Remove system message @systemMessageindex" @onclick="() => SensorsSummary.SystemMessages.Remove(message)"/>

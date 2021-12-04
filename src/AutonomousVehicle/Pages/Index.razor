@@ -5,11 +5,7 @@
 <EditForm Model="SensorsSummary" OnSubmit="@(() => {})">
     <div class="form-check form-switch">
         <label for="displayAdmin">Display Admin Controls</label>
-        <InputCheckbox id="displayAdmin" class="form-check-input" @bind-Value=@DisplayAdminControls/>
-    </div>
-    <div class="form-group">
-        <label for="test">Test</label>
-        <InputNumber id="test" class="form-control" @bind-Value=@SensorsSummary.TravelTimeMinutes/>
+        <InputCheckbox id="displayAdmin" class="form-check-input" @bind-Value="DisplayAdminControls"/>
     </div>
 </EditForm>
 
@@ -36,12 +32,14 @@
             new SystemMessage
             {
                 Message = "Next turn in 1 mile",
-                MessageCriticality = SystemMessageCriticality.Information
+                MessageCriticality = SystemMessageCriticality.Information,
+                Order = 1
             },
             new SystemMessage
             {
                 Message = "Braking applied - side collision avoided",
-                MessageCriticality = SystemMessageCriticality.Warning
+                MessageCriticality = SystemMessageCriticality.Warning,
+                Order = 2
             }
         },
         DisplaySeatbeltIcon = true,
