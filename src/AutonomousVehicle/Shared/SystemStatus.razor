@@ -1,7 +1,7 @@
 ﻿<div class="table">
     <div class="row">
         <div class="col">
-            Test
+            <img src="@IconUrl" style="height: 100%; width: 100%; object-fit: contain; filter: invert(100%);" alt="@AltText"/>
         </div>
     </div>
     <div class="row">
@@ -23,6 +23,12 @@
 </div>
 
 @code {
+    [Parameter, EditorRequired]
+    public string IconUrl { get; set; } = string.Empty;
+    
+    [Parameter, EditorRequired]
+    public string AltText { get; set; } = string.Empty;
+
     [Parameter, EditorRequired]
     public SystemStatusCondition Condition { get; set; }
 }
