@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AutonomousVehicle.Models;
+﻿namespace AutonomousVehicle.Models;
 
 public enum TemperatureType
 {
