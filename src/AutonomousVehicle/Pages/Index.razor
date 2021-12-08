@@ -25,6 +25,7 @@
 
     public SensorsSummary SensorsSummary { get; } = new()
     {
+        DisplaySystemsOverview = false,
         Destination = "Walmart, 900 Stillater Ave, Bangor",
         TravelTimeMinutes = 85,
         Temperature = 36,
@@ -61,7 +62,22 @@
         PowerSteeringCondition = SystemStatusCondition.Good,
         EngineCondition = SystemStatusCondition.Good,
         SensorsCondition = SystemStatusCondition.Good,
-        ProcessorCondition = SystemStatusCondition.Good
+        ProcessorCondition = SystemStatusCondition.Good,
+        CurrentSpeed = 33,
+        SpeedChange = SpeedChange.None,
+        SignalDirection = SignalDirection.None,
+        Gear = Gear.Drive,
+        EngineRpms = 1700,
+        AirIntake = 92,
+        Coolant = 190,
+        BatteryVoltage = 14.3m,
+        FrontDriverSideTirePsi = 42,
+        FrontPassengerSideTirePsi = 43,
+        BackDriverSideTirePsi = 43,
+        BackPassengerSideTirePsi = 43,
+        EngineOilLife = 800,
+        WasherFluidLevel = "Full",
+        BrakeLife = 1652
     };
 
     internal void ApplySensorsValuesUpdate()

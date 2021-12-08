@@ -4,28 +4,28 @@
             <div class="table">
                 <div class="row">
                     <div class="col">
-                        <StatusIndicator Title="Engine RPMS" Message="1700"/>
+                        <StatusIndicator Title="Engine RPMS" Message="@SensorsSummary.EngineRpms.ToString()"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <StatusIndicator Title="Air Intake" Message="92"/>
+                        <StatusIndicator Title="Air Intake" Message="@($"{SensorsSummary.AirIntake}°{SensorsSummary.TemperatureType.ToString("F").FirstOrDefault()}")"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <StatusIndicator Title="Coolant" Message="190"/>
+                        <StatusIndicator Title="Coolant" Message="@($"{SensorsSummary.Coolant}°{SensorsSummary.TemperatureType.ToString("F").FirstOrDefault()}")"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <StatusIndicator Title="Battery Voltage" Message="14.3 V"/>
+                        <StatusIndicator Title="Battery Voltage" Message="@($"{SensorsSummary.BatteryVoltage} V")"/>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col">
-
+            <img class="center" src="images/car-sensors.png" style="height:100%; object-fit: contain; display: block; margin-left: auto; margin-right: auto;"/>
         </div>
         <div class="col">
             <div class="table">
@@ -36,18 +36,18 @@
                                 <div class="table" style="color:white;text-align: center;">
                                     <div class="row">
                                         <div class="col">
-                                            42 PSI
+                                            @SensorsSummary.FrontDriverSideTirePsi PSI
                                         </div>
                                         <div class="col">
-                                            43 PSI
+                                            @SensorsSummary.FrontPassengerSideTirePsi PSI
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            43 PSI
+                                            @SensorsSummary.BackDriverSideTirePsi PSI
                                         </div>
                                         <div class="col">
-                                            43 PSI
+                                            @SensorsSummary.BackPassengerSideTirePsi PSI
                                         </div>
                                     </div>
                                 </div>
@@ -57,17 +57,17 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <StatusIndicator Title="Engine Oil Life" Message="800 Miles"/>
+                        <StatusIndicator Title="Engine Oil Life" Message="@($"{SensorsSummary.EngineOilLife} Miles")"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <StatusIndicator Title="Washer Fluid Level" Message="Full"/>
+                        <StatusIndicator Title="Washer Fluid Level" Message="@SensorsSummary.WasherFluidLevel"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <StatusIndicator Title="Brake Life" Message="1652 Miles"/>
+                        <StatusIndicator Title="Brake Life" Message="@($"{SensorsSummary.BrakeLife} Miles")"/>
                     </div>
                 </div>
             </div>

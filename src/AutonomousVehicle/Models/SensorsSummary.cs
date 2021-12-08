@@ -76,5 +76,50 @@ public class SensorsSummary
     [Display(Name = "Processor Condition")]
     public SystemStatusCondition ProcessorCondition { get; set; }
 
+    [Display(Name = "Current Speed")]
+    public int CurrentSpeed { get; set; }
+
+    [Display(Name = "Speed Change")]
+    public SpeedChange SpeedChange { get; set; }
+
+    [Display(Name = "Signal Direction")]
+    public SignalDirection SignalDirection { get; set; }
+
+    [Display(Name = "Gear")]
+    public Gear Gear { get; set; }
+
+    [Display(Name = "Engine RPMS")]
+    public int EngineRpms { get; set; }
+
+    [Display(Name = "Air Intake")]
+    public int AirIntake { get; set; }
+
+    [Display(Name = "Coolant")]
+    public int Coolant { get; set; }
+
+    [Display(Name = "Battery Voltage")]
+    public decimal BatteryVoltage { get; set; }
+
+    [Display(Name = "Front Driver Side Tire PSI")]
+    public int FrontDriverSideTirePsi { get; set; }
+
+    [Display(Name = "Front Passenger Side Tire PSI")]
+    public int FrontPassengerSideTirePsi { get; set; }
+
+    [Display(Name = "Back Driver Side Tire PSI")]
+    public int BackDriverSideTirePsi { get; set; }
+
+    [Display(Name = "Back Passenger Side Tire PSI")]
+    public int BackPassengerSideTirePsi { get; set; }
+
+    [Display(Name = "Engine Oil Life")]
+    public int EngineOilLife { get; set; }
+
+    [Display(Name = "Washer Fluid Level")]
+    public string WasherFluidLevel { get; set; } = string.Empty;
+
+    [Display(Name = "Brake Life")]
+    public int BrakeLife { get; set; }
+
     public ICollection<SystemMessage> SystemMessages { get; } = new List<SystemMessage>();
 }
