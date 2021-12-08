@@ -1,6 +1,6 @@
 ﻿<div class="table">
     <div class="row">
-        <div class="col">
+        <div class="col" @onclick="ShowDetailedSystemStatus">
             <div class="table" style="border: solid cyan; border-radius: 15px;">
                 <div class="row">
                     <div class="col">
@@ -48,4 +48,13 @@
 @code {
     [CascadingParameter]
     public SensorsSummary SensorsSummary { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Action OnSystemStatusBarClick { get; set; } = () => { };
+
+    private void ShowDetailedSystemStatus()
+    {
+        SensorsSummary.DisplaySystemsOverview = true;
+        OnSystemStatusBarClick();
+    }
 }

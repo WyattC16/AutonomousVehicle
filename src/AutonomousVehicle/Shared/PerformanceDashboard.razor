@@ -1,0 +1,81 @@
+﻿<div class="table">
+    <div class="row">
+        <div class="col">
+            <div class="table">
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Engine RPMS" Message="1700"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Air Intake" Message="92"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Coolant" Message="190"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Battery Voltage" Message="14.3 V"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <div class="table">
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Tire Pressure">
+                            <MessageFragment>
+                                <div class="table" style="color:white;text-align: center;">
+                                    <div class="row">
+                                        <div class="col">
+                                            42 PSI
+                                        </div>
+                                        <div class="col">
+                                            43 PSI
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            43 PSI
+                                        </div>
+                                        <div class="col">
+                                            43 PSI
+                                        </div>
+                                    </div>
+                                </div>
+                            </MessageFragment>
+                        </StatusIndicator>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Engine Oil Life" Message="800 Miles"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Washer Fluid Level" Message="Full"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <StatusIndicator Title="Brake Life" Message="1652 Miles"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+}

@@ -11,28 +11,35 @@
         <div class="table" id="master-layout">
             <div class="row">
                 <div class="col">
-                    <TitleBar/>
+                    <TitleBar OnHomeClick=@OnHomeClick/>
                 </div>
             </div>
-            <div class="row" style="color:white; height:65vh">
-                <div class="col-3">
-                    <SystemMessaging/>
+            @if (SensorsSummary.DisplaySystemsOverview)
+            {
+                <PerformanceDashboard/>
+            }
+            else
+            {
+                <div class="row" style="color:white; height:65vh">
+                    <div class="col-3">
+                        <SystemMessaging/>
+                    </div>
+                    <div class="col">
+                        <RoadIndicator/>
+                    </div>
+                    <div class="col-1" style="width:11%;">
+                        <EmergencyIssuesIcons/>
+                    </div>
+                    <div class="col-1">
+                        <GasIndicator/>
+                    </div>
                 </div>
-                <div class="col">
-                    <RoadIndicator/>
+                <div class="row" style="color:white">
+                    <div class="col">
+                        <SystemStatusBar OnSystemStatusBarClick="OnSystemStatusBarClick"/>
+                    </div>
                 </div>
-                <div class="col-1" style="width:11%;">
-                    <EmergencyIssuesIcons/>
-                </div>
-                <div class="col-1">
-                    <GasIndicator/>
-                </div>
-            </div>
-            <div class="row" style="color:white">
-                <div class="col">
-                    <SystemStatusBar/>
-                </div>
-            </div>
+            }
         </div>
     </CascadingValue>
 }
@@ -41,4 +48,10 @@
 @code {
     [Parameter, EditorRequired]
     public SensorsSummary SensorsSummary { get; set; } = default!;
+    
+    [Parameter, EditorRequired]
+    public Action OnSystemStatusBarClick { get; set; } = () => { };
+
+    [Parameter, EditorRequired]
+    public Action OnHomeClick { get; set; } = () => { };
 }

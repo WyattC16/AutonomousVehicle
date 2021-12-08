@@ -2,6 +2,12 @@
 
 <div class="table">
     <div class="row" style="background-color:slategray">
+        @if (SensorsSummary.DisplaySystemsOverview)
+        {
+            <div class="col-1">
+                <i class="oi oi-home icon-large" style="font-size:25px; color:white;" @onclick=GoHome />
+            </div>
+        }
         <div class="col" style="color:yellow">
             @{
                 var column1Text = SensorsSummary.DisplaySystemsOverview ? "SYSTEMS OVERVIEW" :
@@ -14,7 +20,7 @@
                 }
             }
         </div>
-        <div class="col" style="color:@(SensorsSummary.DisplaySystemsOverview ? "green" : "white")">
+        <div class="col" style="color:@(SensorsSummary.DisplaySystemsOverview ? "limegreen" : "white")">
             @{
                 var column2Text = SensorsSummary.DisplaySystemsOverview ? "ALL SYSTEMS RUNNING NORMALLY" :
                 !string.IsNullOrWhiteSpace(SensorsSummary.Destination) ? SensorsSummary.Destination.ToUpperInvariant() :
@@ -37,9 +43,12 @@
                 <span style="display: inline-block; vertical-align: middle; line-height: normal;">@travelTimeDisplay</span>
             }
         </div>
-        <div class="col-1">
-            <i class="oi oi-cog icon-large" style="font-size:25px" />
-        </div>
+        @if (!SensorsSummary.DisplaySystemsOverview)
+        {
+            <div class="col-1">
+                <i class="oi oi-cog icon-large" style="font-size:25px" />
+            </div>
+        }
     </div>
     <div style="clear: both; color:white">
         <h3 style="float: left">@($"{CurrentDate:MMM dd}")</h3>
@@ -60,11 +69,18 @@
     [CascadingParameter]
     public SensorsSummary SensorsSummary { get; set; } = default!;
 
+    [Parameter, EditorRequired]
+    public Action OnHomeClick { get; set; } = () => { };
+
+    public void GoHome()
+    {
+        SensorsSummary.DisplaySystemsOverview = false;
+        OnHomeClick();
+    }
+
     private DateTime CurrentDate { get; set; }
 
-
     private CancellationTokenSource CurrentDateCancellationTokenSource { get; } = new CancellationTokenSource();
-
 
     protected override void OnAfterRender(bool firstRender)
     {
