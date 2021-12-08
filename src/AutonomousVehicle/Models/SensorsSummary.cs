@@ -4,6 +4,9 @@ namespace AutonomousVehicle.Models;
 
 public class SensorsSummary
 {
+    [Display(Name ="Randomize Values")]
+    public bool RandomizeValues { get; set; }
+
     [Display(Name = "Display Systems Overview")]
     public bool DisplaySystemsOverview { get; set; }
 

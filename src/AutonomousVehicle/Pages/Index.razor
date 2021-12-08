@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@implements IDisposable
+
 <PageTitle>Autonomous Vehicle</PageTitle>
 
 <EditForm Model="SensorsSummary" OnSubmit="@(() => {})">
@@ -66,5 +68,34 @@
     {
         //changing a value triggers the StateHasChanged method. Calling it explicitly after would render a second unneccessary time
         DisplayAdminControls = false;
+    }
+
+    private SensorsRandomizer? Randomizer { get; set; }
+
+    private CancellationTokenSource RandomizerCancellationTokenSource { get; } = new CancellationTokenSource();
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Randomizer = new SensorsRandomizer(SensorsSummary,StateHasChanged);
+            Task.Run(() => Randomizer.RandomizeAsync(RandomizerCancellationTokenSource.Token));
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            RandomizerCancellationTokenSource.Cancel();
+            RandomizerCancellationTokenSource.Dispose();
+        }
     }
 }
