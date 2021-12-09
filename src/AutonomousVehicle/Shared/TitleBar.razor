@@ -1,5 +1,7 @@
 ﻿@implements IDisposable
 
+@inject IModalService Modal
+
 <div class="table">
     <div class="row" style="background-color:slategray">
         @if (SensorsSummary.DisplaySystemsOverview)
@@ -28,7 +30,7 @@
 
                 if (!string.IsNullOrWhiteSpace(column2Text))
                 {
-                    <span style="display: inline-block; vertical-align: middle; line-height: normal;">@column2Text</span>
+                    <span style="display: inline-block; vertical-align: middle; line-height: normal;" @onclick=DesinationPopup>@column2Text</span>
                 }
             }
         </div>
@@ -72,16 +74,35 @@
     [Parameter, EditorRequired]
     public Action OnChangeScreen { get; set; } = () => { };
 
-    public void GoHome()
+    private void GoHome()
     {
         SensorsSummary.DisplaySystemsOverview = false;
         OnChangeScreen();
     }
-    
-    public void GoToDetails()
+
+    private void GoToDetails()
     {
         SensorsSummary.DisplaySystemsOverview = true;
         OnChangeScreen();
+    }
+
+    private async Task DesinationPopup()
+    {
+        if (SensorsSummary.DisplaySystemsOverview) return;
+
+        var options = new ModalOptions
+        {
+            FocusFirstElement = true   
+        };
+
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(SensorsSummary), SensorsSummary);
+
+        var result = await Modal.Show<DestinationInput>("Enter destination", parameters, options).Result;
+        if (result.Data is SensorsSummary sensorsSummaryResult)
+        {
+            SensorsSummary = sensorsSummaryResult;
+        }
     }
 
     private DateTime CurrentDate { get; set; }

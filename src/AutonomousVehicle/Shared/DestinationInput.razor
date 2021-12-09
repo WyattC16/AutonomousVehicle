@@ -1,0 +1,25 @@
+﻿<div class="simple-form" style="color: black">
+
+    <div class="form-group">
+        <label for="destination">Destination</label>
+        <input @bind="@SensorsSummary.Destination" type="text" class="form-control" id="destination" />
+    </div>
+
+    <button @onclick="SaveDestination" class="btn btn-primary">Submit</button>
+    <button @onclick="ModalInstance.CancelAsync" class="btn btn-secondary">Cancel</button>
+</div>
+
+@code {
+    [Parameter, EditorRequired] 
+    public SensorsSummary SensorsSummary { get; set; } = default!;
+
+    [CascadingParameter] 
+    public BlazoredModalInstance ModalInstance { get; set; } = default!;
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5394:Do not use insecure randomness", Justification = "This is not security critical")]
+    private void SaveDestination()
+    {
+        SensorsSummary.TravelTimeMinutes = new Random().Next(1, 60);
+        ModalInstance.CloseAsync(ModalResult.Ok<SensorsSummary>(SensorsSummary));
+    }
+}
