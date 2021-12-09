@@ -46,7 +46,7 @@
         @if (!SensorsSummary.DisplaySystemsOverview)
         {
             <div class="col-1">
-                <i class="oi oi-cog icon-large" style="font-size:25px" />
+                <i class="oi oi-cog icon-large" style="font-size:25px" @onclick=GoToDetails />
             </div>
         }
     </div>
@@ -70,12 +70,18 @@
     public SensorsSummary SensorsSummary { get; set; } = default!;
 
     [Parameter, EditorRequired]
-    public Action OnHomeClick { get; set; } = () => { };
+    public Action OnChangeScreen { get; set; } = () => { };
 
     public void GoHome()
     {
         SensorsSummary.DisplaySystemsOverview = false;
-        OnHomeClick();
+        OnChangeScreen();
+    }
+    
+    public void GoToDetails()
+    {
+        SensorsSummary.DisplaySystemsOverview = true;
+        OnChangeScreen();
     }
 
     private DateTime CurrentDate { get; set; }

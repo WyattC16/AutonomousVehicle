@@ -21,7 +21,7 @@
     </CascadingValue>
 }
 
-<MasterInterface SensorsSummary=@SensorsSummary OnSystemStatusBarClick=@(() => StateHasChanged()) OnHomeClick=@(() => StateHasChanged()) />
+<MasterInterface SensorsSummary=@SensorsSummary OnSystemStatusBarClick=@(() => StateHasChanged()) OnChangeScreen=@(() => StateHasChanged()) />
 
 @code{
     private bool DisplayAdminControls { get; set; }

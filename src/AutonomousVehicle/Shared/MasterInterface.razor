@@ -11,7 +11,7 @@
         <div class="table" id="master-layout">
             <div class="row">
                 <div class="col">
-                    <TitleBar OnHomeClick=@OnHomeClick/>
+                    <TitleBar OnChangeScreen=@OnChangeScreen/>
                 </div>
             </div>
             @if (SensorsSummary.DisplaySystemsOverview)
@@ -53,5 +53,5 @@
     public Action OnSystemStatusBarClick { get; set; } = () => { };
 
     [Parameter, EditorRequired]
-    public Action OnHomeClick { get; set; } = () => { };
+    public Action OnChangeScreen { get; set; } = () => { };
 }
