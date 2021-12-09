@@ -1,26 +1,28 @@
-﻿<div class="table">
-    <div class="row">
-        <div class="col">
-            <img src="@IconUrl" style="height: 100%; width: 100%; object-fit: contain; filter: invert(100%);" alt="@AltText"/>
+﻿<ToolTipWrapper Text=@AltText>
+    <div class="table">
+        <div class="row">
+            <div class="col">
+                <img src="@IconUrl" style="height: 100%; width: 100%; object-fit: contain; filter: invert(100%);" alt="@AltText"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @switch (Condition)
+                {
+                    case SystemStatusCondition.Good:
+                        <span class="oi oi-check" style="color:green;"/>
+                        break;
+                    case SystemStatusCondition.Warning:
+                        <span class="oi oi-warning" style="color:yellow;"/>
+                        break;
+                    case SystemStatusCondition.Error:
+                        <span class="oi oi-x" style="color:red;"/>
+                        break;
+                }
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            @switch (Condition)
-            {
-                case SystemStatusCondition.Good:
-                    <span class="oi oi-check" style="color:green;"/>
-                    break;
-                case SystemStatusCondition.Warning:
-                    <span class="oi oi-warning" style="color:yellow;"/>
-                    break;
-                case SystemStatusCondition.Error:
-                    <span class="oi oi-x" style="color:red;"/>
-                    break;
-            }
-        </div>
-    </div>
-</div>
+</ToolTipWrapper>
 
 @code {
     [Parameter, EditorRequired]
