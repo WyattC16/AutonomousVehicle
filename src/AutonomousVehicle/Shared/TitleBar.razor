@@ -26,7 +26,7 @@
             @{
                 var column2Text = SensorsSummary.DisplaySystemsOverview ? "ALL SYSTEMS RUNNING NORMALLY" :
                 !string.IsNullOrWhiteSpace(SensorsSummary.Destination) ? SensorsSummary.Destination.ToUpperInvariant() :
-                string.Empty;
+                "Click here to add destination";
 
                 if (!string.IsNullOrWhiteSpace(column2Text))
                 {
