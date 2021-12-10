@@ -34,3 +34,7 @@
     .tooltip-wrapper:hover span.tooltip-text {
         visibility: visible;
     }
+
+    .tooltip-wrapper:active span.tooltip-text {
+        visibility: visible;
+    }
