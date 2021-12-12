@@ -1,6 +1,6 @@
 ﻿namespace AutonomousVehicle.Models;
 
-public class SystemMessage
+public record SystemMessage
 {
     public SystemMessageCriticality MessageCriticality { get; set; }
 

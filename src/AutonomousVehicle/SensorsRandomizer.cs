@@ -1,5 +1,4 @@
 ﻿using AutonomousVehicle.Models;
-using Toolbelt.Blazor.SpeechSynthesis;
 
 namespace AutonomousVehicle;
 
@@ -8,10 +7,10 @@ public class SensorsRandomizer
 {
     private readonly SensorsSummary _sensorsSummary;
     private readonly Action _onRandomize;
-    private readonly SpeechSynthesis _speechSynthesis;
+    private readonly SystemMessagesSpeechSynthesis _speechSynthesis;
     private readonly Random _random;
 
-    public SensorsRandomizer(SensorsSummary sensorsSummary, Action onRandomize, SpeechSynthesis speechSynthesis)
+    public SensorsRandomizer(SensorsSummary sensorsSummary, Action onRandomize, SystemMessagesSpeechSynthesis speechSynthesis)
     {
         _sensorsSummary = sensorsSummary;
         _onRandomize = onRandomize;
@@ -232,19 +231,16 @@ public class SensorsRandomizer
                 _ => string.Empty
             };
 
-            if (messageCriticality == SystemMessageCriticality.Warning)
-            {
-                _speechSynthesis.Speak("Warning");
-            }
-
-            _speechSynthesis.Speak(message);
-
-            _sensorsSummary.SystemMessages.Add(new SystemMessage
+            var systemMessage = new SystemMessage
             {
                 Order = 1,
                 Message = message,
                 MessageCriticality = messageCriticality
-            });
+            };
+
+            _speechSynthesis.SpeakSystemMessages(systemMessage);
+
+            _sensorsSummary.SystemMessages.Add(systemMessage);
         }
 
         return applyUpdates;

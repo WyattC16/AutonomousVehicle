@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 
 @inject IJSRuntime JS
+@inject SystemMessagesSpeechSynthesis SpeechSynthesis
 @implements IAsyncDisposable
 
 <h3>Admin Controls</h3>
@@ -80,12 +81,16 @@
 
     private ICollection<GenericFormField<SensorsSummary>> CheckboxFields = new List<GenericFormField<SensorsSummary>>();
 
+    private List<SystemMessage> PreviousSystemMessages { get; set; } = new();
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
             await UpdateCheckBoxesClasses();
+            PreviousSystemMessages.Clear();
+            PreviousSystemMessages.AddRange(SensorsSummary.SystemMessages.Select(x => x with {}));
         }
     }
 
@@ -108,6 +113,13 @@
 
     public async ValueTask DisposeAsync()
     {
+        SpeechSynthesis.SpeakSystemMessages(
+            SensorsSummary.SystemMessages
+                .Where(x => !PreviousSystemMessages.Any(y => 
+                    x.Message == y.Message &&
+                    x.MessageCriticality == y.MessageCriticality))
+                .ToArray());
+
         if (JsModule is not null)
             await JsModule.DisposeAsync();
     }
