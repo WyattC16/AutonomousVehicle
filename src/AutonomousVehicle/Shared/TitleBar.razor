@@ -45,6 +45,10 @@
                 <span style="display: inline-block; vertical-align: middle; line-height: normal;">@travelTimeDisplay</span>
             }
         </div>
+        <div class="col">
+            <span><i class="oi oi-sun"/>/<i  class="oi oi-moon"/></span>
+            <i class="oi oi-cog icon-large" style="font-size:25px" @onclick=GoToDetails />
+        </div>
         @if (!SensorsSummary.DisplaySystemsOverview)
         {
             <div class="col-1">
